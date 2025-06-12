@@ -1,0 +1,86 @@
+/* MainPage.css */
+
+.main-page-container {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  font-family: Arial, sans-serif;
+}
+
+.main-page-content {
+  width: 50%;
+  text-align: left;
+}
+
+.main-page-header {
+  color: #007bff;
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.main-page-paragraph {
+  color: #333;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+.main-page-list {
+  text-align: left;
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.main-page-list li::before {
+  content: "✔️ ";
+  color: green;
+}
+
+.input-button-container {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.main-page-input {
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 30px;
+  flex: 1;
+}
+
+.main-page-button {
+  margin-left: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.main-page-button:hover {
+  background-color: #0056b3;
+}
+
+.main-page-image-container {
+  width: 35%;
+  display: flex;
+  
+  justify-content: left;
+  align-items: left;
+}
+
+.main-page-image {
+  max-width: 100%;
+  height: auto;
+}
+.main-page-footer {
+  margin-top: 20px;
+  color: #777;
+  font-size: 0.8em;
+  text-align: right; /* Aligns text to the right within the footer */
+}
+
