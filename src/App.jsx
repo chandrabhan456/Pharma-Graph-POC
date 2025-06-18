@@ -42,6 +42,7 @@ function App() {
       <>
       
         <Route path="/" element={<MainPage />} />
+         <Route path="/mainpage" element={<MainPage />} />
          <Route path="/secondPage" element={<SecondPage />} />
       
       </>

@@ -3,7 +3,7 @@ import * as d3 from "d3";
 
 const D3Component = ({ data }) => {
   useEffect(() => {
-    // Clear any existing content in the container
+    // Clear the container
     d3.select("#d3-container").selectAll("*").remove();
 
     let i = 0;
@@ -19,7 +19,7 @@ const D3Component = ({ data }) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Function to collapse nodes below a certain level
+    // Collapse nodes below a certain level
     function collapseBelowLevel(d, level = 0) {
       if (d.children) {
         d.children.forEach((child) => {
@@ -29,7 +29,6 @@ const D3Component = ({ data }) => {
       }
     }
 
-    // Function to collapse a node and its children
     function collapse(d) {
       if (d.children) {
         d._children = d.children;
@@ -44,7 +43,7 @@ const D3Component = ({ data }) => {
     root.y0 = 0;
     collapseBelowLevel(root);
 
-    // Define arrowhead marker for links
+    // Arrowhead marker for links
     svg
       .append("defs")
       .append("marker")
@@ -64,7 +63,7 @@ const D3Component = ({ data }) => {
       const nodes = treeData.descendants();
       const links = treeData.links();
 
-      // Calculate dynamic viewBox to prevent nodes from being clipped
+      // Dynamic viewBox
       let minX = d3.min(nodes, (d) => d.x - (d.data.height || 50) / 2);
       let maxX = d3.max(nodes, (d) => d.x + (d.data.height || 50) / 2);
       let minY = d3.min(nodes, (d) => d.y - (d.data.width || 120) / 2);
@@ -113,9 +112,15 @@ const D3Component = ({ data }) => {
         .style("fill", "black")
         .style("font-size", 14)
         .each(function (d) {
+          // Defensive: always use a string for name
+          let text = typeof d.data.name === "string" ? d.data.name : "";
+          if (!text) {
+            console.warn("Node missing 'name' property:", d.data);
+            text = "?";
+          }
           wrapText(
             d3.select(this),
-            d.data.name,
+            text,
             (d.data.width || 120) - 16,
             (d.data.height || 50) - 10
           );
@@ -204,8 +209,12 @@ const D3Component = ({ data }) => {
       update(d);
     }
 
-    // Text wrap for rectangles
+    // Robust text wrap for rectangles
     function wrapText(textSelection, text, width, height) {
+      if (!text || typeof text !== "string") {
+        textSelection.text("?");
+        return;
+      }
       const words = text.split(/\s+/);
       let line = [];
       let lineNumber = 0;
