@@ -84,3 +84,10 @@
   text-align: right; /* Aligns text to the right within the footer */
 }
 
+.main-page-dropdown {
+  border: 1.5px solid #888;
+  border-radius: 4px;
+  padding: 6px 12px;
+  background: #fff;
+  height:40px
+}

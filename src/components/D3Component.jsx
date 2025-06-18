@@ -3,11 +3,10 @@ import * as d3 from "d3";
 
 const D3Component = ({ data }) => {
   useEffect(() => {
-    // Clear the container
     d3.select("#d3-container").selectAll("*").remove();
 
     let i = 0;
-    const margin = { top: 20, right: 90, bottom: 30, left: 90 };
+    const margin = { top: 20, right: 90, bottom: 60, left: 90 };
     const width = 960 - margin.left - margin.right;
     const height = 700 - margin.top - margin.bottom;
 
@@ -19,16 +18,7 @@ const D3Component = ({ data }) => {
       .append("g")
       .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // Collapse nodes below a certain level
-    function collapseBelowLevel(d, level = 0) {
-      if (d.children) {
-        d.children.forEach((child) => {
-          if (level >= 1) collapse(child);
-          else collapseBelowLevel(child, level + 1);
-        });
-      }
-    }
-
+    // Collapse node and all descendants
     function collapse(d) {
       if (d.children) {
         d._children = d.children;
@@ -41,7 +31,9 @@ const D3Component = ({ data }) => {
     const root = d3.hierarchy(data, (d) => d.children);
     root.x0 = height / 2;
     root.y0 = 0;
-    collapseBelowLevel(root);
+
+    // Collapse ALL children, so only root is shown
+    collapse(root);
 
     // Arrowhead marker for links
     svg

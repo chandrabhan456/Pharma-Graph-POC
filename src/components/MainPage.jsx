@@ -1,11 +1,14 @@
-import React from 'react';
+import React,{useState} from 'react';
 import './MainPage.css'; // Import the CSS file
 
 import { useNavigate } from 'react-router-dom';
+const dummyData = ["P001", "P002", "P003"];
+
 import patient from "../assets/Patient.png";
 const MainPage = () => {
    const navigate = useNavigate(); // Initialize the navigate function
-
+  const [selectedDrug, setSelectedDrug] = useState(dummyData[0]);
+  const [inputValue, setInputValue] = useState("");
   const handleButtonClick = () => {
     navigate('/secondPage'); // Navigate to '/secondPage' when the function is called
   };
@@ -30,20 +33,34 @@ const MainPage = () => {
           Simply enter the drug you intend to prescribe, and our system will conduct a thorough due 
           diligence process, delivering a detailed assessment of its interactions.
         </p>
-        <div className="input-button-container ">
-          <input 
-            type="text" 
-            placeholder="Enter the drug you need to prescribe" 
-            className="main-page-input"
-          />
-       <button
-            className="main-page-button"
-            onClick={handleButtonClick} // Use the function in the onClick event
-          >
-            🔄 Real Stats
-          </button>
+       <div className="input-button-container">
+      <select
+        value={selectedDrug}
+        onChange={e => setSelectedDrug(e.target.value)}
+        className="main-page-dropdown"
+        style={{ marginRight: "10px" }}
+      >
+        {dummyData.map(item => (
+          <option key={item} value={item}>{item}</option>
+        ))}
+      </select>
 
-        </div>
+      <input 
+        type="text" 
+        value={inputValue}
+        onChange={e => setInputValue(e.target.value)}
+        placeholder="Enter the drug you need to prescribe" 
+        className="main-page-input"
+        style={{ marginRight: "10px" }}
+      />
+
+      <button
+        className="main-page-button"
+        onClick={handleButtonClick}
+      >
+        🔄 Real Stats
+      </button>
+    </div>
         <p className="main-page-paragraph">
           Ensuring safe and effective treatment starts with knowledge and vigilance - let us empower 
           you with the insights you need.

@@ -6,7 +6,7 @@ import Login from "./views/Login";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar,  Sidebar} from './views';
 import { useStateContext } from './contexts/ContextProvider.jsx';
-import {MainPage,SecondPage} from './components'
+import {MainPage,SecondPage,Graph} from './components'
 function App() {
    localStorage.setItem('OpenAI_Configuration',true)
   localStorage.removeItem("login");
@@ -44,6 +44,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
          <Route path="/mainpage" element={<MainPage />} />
          <Route path="/secondPage" element={<SecondPage />} />
+           <Route path="/graph" element={<Graph />} />
       
       </>
    
