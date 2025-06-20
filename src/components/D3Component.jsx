@@ -1,7 +1,95 @@
 import React, { useEffect } from "react";
 import * as d3 from "d3";
+const data = {
+    name: "DrugInteractionGraph",
+    width: 220,
+    height: 50,
+    children: [
+      {
+        name: "Drug",
+        width: 160,
+        height: 50,
+        children: [
+          {
+            name: "Revlimid (Lenalidomide)",
+            width: 180,
+            height: 50,
+            children: [
+              {
+                name: "Interactions",
+                width: 150,
+                height: 45,
+                children: [
+                  {
+                    name: "Drug: Methoxy Polyethylene Glycol-Epoetin Beta",
+                    color: "lightcoral",
+                    width: 200,
+                    height: 40,
+                  },
+                  {
+                    name: "Drug: Estradiol",
+                    color: "lightcoral",
+                    width: 200,
+                    height: 40,
+                  },
+                  {
+                    name: "Drug: Atorvastatin",
+                    color: "lightcoral",
+                    width: 200,
+                    height: 40,
+                  },
+                  {
+                    name: "Drug: Apixaban",
+                    color: "lightcoral",
+                    width: 200,
+                    height: 40,
+                  },
+                  {
+                    name: "Drug: Diphenhydramine",
+                    color: "lightcoral",
+                    width: 200,
+                    height: 40,
+                  },
+                ],
+              },
+              {
+                name: "SafeCombinations",
+                width: 150,
+                height: 45,
+                children: [
+                  {
+                    name: "Drug: Glyburide",
+                    color: "lightgreen",
+                    width: 200,
+                    height: 40,
+                  },
+                  {
+                    name: "Drug: Sitagliptin",
+                    color: "lightgreen",
+                    width: 200,
+                    height: 40,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  };
+  
+const levelColors = [
+  "#e57373", // Level 0 (root)
+  "#64b5f6", // Level 1
+  "#81c784", // Level 2
+  "#ffd54f", // Level 3
+  "#ba68c8", // Level 4
+  "#ff8a65", // Level 5
+  "#90a4ae", // Level 6
+  // ...add more colors if your tree is deeper
+];
 
-const D3Component = ({ data }) => {
+const D3Component = () => {
   useEffect(() => {
     d3.select("#d3-container").selectAll("*").remove();
 
