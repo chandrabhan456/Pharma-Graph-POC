@@ -50,10 +50,7 @@ const Navbar = () => {
            
           >
           
-            <div className="cursor-pointer w-24 text-center mt-3 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600"  onClick={handleLogout}>
-  Logout
-</div>
-
+          
           </div>
 
        

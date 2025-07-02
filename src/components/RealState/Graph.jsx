@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from "react";
-import D3Component from "./D3Component";
+import D3Component from "../D3Component";
 import { GoArrowLeft } from "react-icons/go";
 import { useNavigate } from "react-router-dom";
 import D3DirectedGraph from "./D3DirectedGraph";
 
+import { useStateContext } from "../../contexts/ContextProvider";
+
+
+
+  
 const Graph = () => {
+  const { recommendation, setRecommendation, isLoading, setIsLoading } =
+    useStateContext();
   const navigate = useNavigate(); // Initialize the navigate function
   const [treeData, setTreeData] = useState({});
-
+  const links2 = recommendation.d3_graph_data.links.map(l => ({
+  ...l,
+  label: `${l.type}\n${l.value}`
+}));
   const handlePageChange = () => {
     navigate("/secondpage"); // Navigate to '/secondPage' when the function is called
   };
@@ -41,7 +51,7 @@ const Graph = () => {
     paddingTop: "40px", // adjust as needed
   }}
 >
-  <D3DirectedGraph  />
+  <D3DirectedGraph nodes={recommendation.d3_graph_data.nodes} links={links2} />
 </div>
 
 

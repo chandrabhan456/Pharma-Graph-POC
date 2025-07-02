@@ -6,7 +6,7 @@ import Login from "./views/Login";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar,  Sidebar} from './views';
 import { useStateContext } from './contexts/ContextProvider.jsx';
-import {MainPage,SecondPage,Graph} from './components'
+import {MainPage,SecondPage,Graph,Drug} from './components'
 function App() {
    localStorage.setItem('OpenAI_Configuration',true)
   localStorage.removeItem("login");
@@ -17,9 +17,7 @@ function App() {
   return (<div >
 
 <BrowserRouter future={{ v7_startTransition: true,v7_relativeSplatPath:true }}>
-  {!login1 ? (
-    <Login />
-  ) : (
+ 
     <div className="flex flex-col min-h-screen">
       
       {/* Navbar - Full Width at Top */}
@@ -46,6 +44,7 @@ function App() {
          <Route path="/secondPage" element={<SecondPage />} />
            <Route path="/graph" element={<Graph />} />
       
+       <Route path="/drugInteraction" element={<Drug />} />
       </>
    
 
@@ -56,7 +55,7 @@ function App() {
 
       </div>
     </div>
-  )}
+  
 </BrowserRouter>
 
 </div>  )

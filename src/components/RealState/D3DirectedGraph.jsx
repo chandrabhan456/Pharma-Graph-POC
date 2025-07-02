@@ -1,38 +1,11 @@
 import React, { useRef, useEffect } from "react";
 import * as d3 from "d3";
 
-const nodes = [
-  { id: "P002" },
-  { id: "Rvr-lindi" },
-  { id: "Digoxin" },
-  { id: "Losartan" },
-  { id: "Methotrexate" },
-  { id: "Renali domis" },
-  { id: "Neoplasmia" },
-  { id: "Deep vein thrombosis" },
-  { id: "Bleeding" },
-  { id: "Heart" }
-];
-
-const links = [
-  { source: "P002", target: "Rvr-lindi", label: "PRESCRIBED\n6.3" },
-  { source: "P002", target: "Digoxin", label: "Existing Dr." },
-  { source: "P002", target: "Losartan", label: "Existing Dr." },
-  { source: "P002", target: "Methotrexate", label: "Existing Dr." },
-  { source: "Rvr-lindi", target: "Renali domis", label: "contains" },
-  { source: "Renali domis", target: "Neoplasmia", label: "7" },
-  { source: "Renali domis", target: "Deep vein thrombosis", label: "28" },
-  { source: "Deep vein thrombosis", target: "Bleeding", label: "28.6" },
-  { source: "Bleeding", target: "Heart", label: "L6" },
-  { source: "Digoxin", target: "Heart", label: "6" },
-  { source: "Losartan", target: "Heart", label: "5" },
-  { source: "Methotrexate", target: "Heart", label: "6" },
-];
 
 const linkColor = d3.scaleOrdinal(d3.schemeCategory10);
 const NODE_RADIUS = 45;
 
-export default function D3DirectedGraph() {
+export default function D3DirectedGraph({nodes,links}) {
   const ref = useRef();
 
   useEffect(() => {

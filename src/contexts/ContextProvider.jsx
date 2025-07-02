@@ -30,7 +30,8 @@ export const ContextProvider = ({ children }) => {
 
   const [mainPage, setMainPage] = useState(false)
   const [login1, setlogin1] = useState(initialLoginState);
-  const [secondPage,setSecondPage] = useState(false)
+  const [isLoading,setIsLoading] = useState(false)
+  const [recommendation,setRecommendation] = useState('')
   useEffect(() => {
     localStorage.setItem('login', login1);
   }, [login1]);
@@ -39,7 +40,7 @@ export const ContextProvider = ({ children }) => {
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{login1,setlogin1,mainPage,setMainPage}}>
+    <StateContext.Provider value={{login1,setlogin1,mainPage,setMainPage,recommendation,setRecommendation,isLoading,setIsLoading}}>
       {children}
     </StateContext.Provider>
   );
