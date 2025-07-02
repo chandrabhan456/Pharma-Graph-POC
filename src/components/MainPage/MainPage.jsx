@@ -8,7 +8,7 @@ const dummyData = ["p001", "p002", "p003"];
 import patient from "../../assets/Patient.png";
 const MainPage = () => {
   const navigate = useNavigate(); // Initialize the navigate function
-  const { recommendation, setRecommendation, isLoading, setIsLoading } =
+  const { recommendation, setRecommendation, isLoading, setIsLoading,drugInteraction,setDrugInteraction } =
     useStateContext();
   const [selectedDrug, setSelectedDrug] = useState(dummyData[0]);
   const [inputValue, setInputValue] = useState("");
@@ -28,6 +28,171 @@ const MainPage = () => {
   };
   const handleDrug = async () => {
     navigate('/drugInteraction')
+   console.log('Input values are',inputValues)
+    setIsLoading(true);
+    try {
+      const response = await fetch("http://127.0.0.1:8000/analyze_drug", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          patient_id: selectedDrug,
+          new_drug_name: inputValue,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch image: ${response.statusText}`);
+      }
+
+      // Parse JSON response
+      const data = await response.json();
+      console.log("API response", data);
+
+      // Set base64 image (prepend the proper data URL prefix)
+
+      // Set metrics if you want to show them in a table
+      if (data) {
+        setRecommendation(data);
+        console.log("datammmmmm", data);
+      }
+    } catch (error) {
+      console.error("Error fetching image:", error);
+      setDrugInteraction({
+       drugData :{
+        data:[
+    { name: "Drug1", score: 75 },
+    { name: "Drug2", score: 50 },
+    { name: "Drug3", score: 90 },
+    { name: "Drug4", score: 65 },
+    { name: "Drug5", score: 80 },
+       ],
+      },
+        d3_graph_data: {
+          nodes: [
+            {
+              id: "p001",
+              label: "Patient",
+              group: "patient",
+            },
+            {
+              id: "Avandia",
+              label: "New Drug: Avandia",
+              group: "new_drug",
+            },
+            {
+              id: "Metformin",
+              label: "Existing Drug: Metformin",
+              group: "existing_drug",
+            },
+            {
+              id: "Isosorbide Mononitrate",
+              label: "Existing Drug: Isosorbide Mononitrate",
+              group: "existing_drug",
+            },
+            {
+              id: "Heart failure",
+              label: "Adverse Effect: Heart failure",
+              group: "adverse_effect",
+            },
+            {
+              id: "Edema",
+              label: "Adverse Effect: Edema",
+              group: "adverse_effect",
+            },
+            {
+              id: "Hypoglycemia",
+              label: "Adverse Effect: Hypoglycemia",
+              group: "adverse_effect",
+            },
+            {
+              id: "Heart",
+              label: "Organ: Heart",
+              group: "organ",
+            },
+            {
+              id: "Peripheral Vascular System",
+              label: "Organ: Peripheral Vascular System",
+              group: "organ",
+            },
+            {
+              id: "Metabolic System",
+              label: "Organ: Metabolic System",
+              group: "organ",
+            },
+            {
+              id: "Cardiac",
+              label: "Organ: Cardiac",
+              group: "organ",
+            },
+            {
+              id: "Rosiglitazone",
+              label: "Organ: Cardiac",
+              group: "organ",
+            },
+          ],
+          links: [
+            {
+              source: "Avandia",
+              target: "Metformin",
+              type: "INTERACTS_WITH",
+              value: 12,
+            },
+            {
+              source: "Rosiglitazone",
+              target: "Isosorbide Mononitrate",
+              type: "INTERACTS_WITH",
+              value: 45,
+            },
+            {
+              source: "Rosiglitazone",
+              target: "Heart failure",
+              type: "CAUSES_AE",
+              value: 8,
+            },
+            {
+              source: "Rosiglitazone",
+              target: "Edema",
+              type: "CAUSES_AE",
+              value: 8,
+            },
+            {
+              source: "Metformin",
+              target: "Hypoglycemia",
+              type: "CAUSES_AE",
+              value: 3,
+            },
+            {
+              source: "Heart failure",
+              target: "Heart",
+              type: "AFFECTS_ORGAN",
+              value: 8,
+            },
+            {
+              source: "Edema",
+              target: "Peripheral Vascular System",
+              type: "AFFECTS_ORGAN",
+              value: 8,
+            },
+            {
+              source: "Hypoglycemia",
+              target: "Metabolic System",
+              type: "AFFECTS_ORGAN",
+              value: 3,
+            },
+            {
+              source: "Rosiglitazone",
+              target: "Cardiac",
+              type: "AFFECTS_ORGAN",
+              value: 20.1,
+            },
+          ],
+        },
+      });
+    } finally {
+      setIsLoading(false);
+    }
   }
   const handleButtonClick = async () => {
     navigate("/secondPage"); // Navigate to '/secondPage' when the function is called

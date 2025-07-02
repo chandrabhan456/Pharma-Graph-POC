@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState,useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 const StateContext = createContext();
 
@@ -6,41 +6,54 @@ const initialState = {
   setting: false,
   notification: false,
   userProfile: false,
-  
 };
 let loginstate;
-const initialLoginState = localStorage.getItem('login') 
-    ? localStorage.getItem('login') === 'true' 
-    : false;
+const initialLoginState = localStorage.getItem("login")
+  ? localStorage.getItem("login") === "true"
+  : false;
 export const ContextProvider = ({ children }) => {
-  console.log(localStorage.getItem('openAI_Configuration'))
-  
- console.log("loginchan",localStorage.getItem('login'))
- let initialLoginState = localStorage.getItem('login');
- if (initialLoginState === null || initialLoginState === 'false') {
-   // If null or true, set to false
-   localStorage.setItem('login', 'false');
-   initialLoginState = false;
- } else {
-   // Otherwise, parse as a boolean
-   initialLoginState = localStorage.getItem('login')
- }
-  const [activeMenu, setActiveMenu] = useState((localStorage.getItem('openAI_Configuration')) || true);
+  console.log(localStorage.getItem("openAI_Configuration"));
+
+  console.log("loginchan", localStorage.getItem("login"));
+  let initialLoginState = localStorage.getItem("login");
+  if (initialLoginState === null || initialLoginState === "false") {
+    // If null or true, set to false
+    localStorage.setItem("login", "false");
+    initialLoginState = false;
+  } else {
+    // Otherwise, parse as a boolean
+    initialLoginState = localStorage.getItem("login");
+  }
+  const [activeMenu, setActiveMenu] = useState(
+    localStorage.getItem("openAI_Configuration") || true
+  );
   const [isClicked, setIsClicked] = useState(initialState);
 
-  const [mainPage, setMainPage] = useState(false)
+  const [mainPage, setMainPage] = useState(false);
   const [login1, setlogin1] = useState(initialLoginState);
-  const [isLoading,setIsLoading] = useState(false)
-  const [recommendation,setRecommendation] = useState('')
+  const [isLoading, setIsLoading] = useState(false);
+  const [recommendation, setRecommendation] = useState("");
+  const [drugInteraction, setDrugInteraction] = useState("");
   useEffect(() => {
-    localStorage.setItem('login', login1);
+    localStorage.setItem("login", login1);
   }, [login1]);
-
- 
 
   return (
     // eslint-disable-next-line react/jsx-no-constructed-context-values
-    <StateContext.Provider value={{login1,setlogin1,mainPage,setMainPage,recommendation,setRecommendation,isLoading,setIsLoading}}>
+    <StateContext.Provider
+      value={{
+        login1,
+        setlogin1,
+        mainPage,
+        setMainPage,
+        recommendation,
+        setRecommendation,
+        isLoading,
+        setIsLoading,
+        drugInteraction,
+        setDrugInteraction
+      }}
+    >
       {children}
     </StateContext.Provider>
   );
