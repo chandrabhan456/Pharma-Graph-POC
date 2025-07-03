@@ -8,8 +8,14 @@ const dummyData = ["p001", "p002", "p003"];
 import patient from "../../assets/Patient.png";
 const MainPage = () => {
   const navigate = useNavigate(); // Initialize the navigate function
-  const { recommendation, setRecommendation, isLoading, setIsLoading,drugInteraction,setDrugInteraction } =
-    useStateContext();
+  const {
+    recommendation,
+    setRecommendation,
+    isLoading,
+    setIsLoading,
+    drugInteraction,
+    setDrugInteraction,
+  } = useStateContext();
   const [selectedDrug, setSelectedDrug] = useState(dummyData[0]);
   const [inputValue, setInputValue] = useState("");
   const [visibleInputs, setVisibleInputs] = useState(2);
@@ -27,8 +33,8 @@ const MainPage = () => {
     }
   };
   const handleDrug = async () => {
-    navigate('/drugInteraction')
-   console.log('Input values are',inputValues)
+    navigate("/drugInteraction");
+    console.log("Input values are", inputValues);
     setIsLoading(true);
     try {
       const response = await fetch("http://127.0.0.1:8000/analyze_drug", {
@@ -59,141 +65,182 @@ const MainPage = () => {
       }
     } catch (error) {
       console.error("Error fetching image:", error);
-      setDrugInteraction({
-       drugData :{
-        data:[
-    { name: "Drug1", score: 75 },
-    { name: "Drug2", score: 50 },
-    { name: "Drug3", score: 90 },
-    { name: "Drug4", score: 65 },
-    { name: "Drug5", score: 80 },
-       ],
+      setDrugInteraction(
+        {
+  "ddi_bar_graph": {
+    "Dizziness": 3,
+    "QT prolongation": 8,
+    "Increased bleeding risk": 5,
+    "Serotonin syndrome": 7,
+    "Hypotension": 4
+  },
+  "ddi_d3_graph": {
+    "nodes": [
+      {
+        "id": "IngredientA",
+        "type": "Drug"
       },
-        d3_graph_data: {
-          nodes: [
-            {
-              id: "p001",
-              label: "Patient",
-              group: "patient",
-            },
-            {
-              id: "Avandia",
-              label: "New Drug: Avandia",
-              group: "new_drug",
-            },
-            {
-              id: "Metformin",
-              label: "Existing Drug: Metformin",
-              group: "existing_drug",
-            },
-            {
-              id: "Isosorbide Mononitrate",
-              label: "Existing Drug: Isosorbide Mononitrate",
-              group: "existing_drug",
-            },
-            {
-              id: "Heart failure",
-              label: "Adverse Effect: Heart failure",
-              group: "adverse_effect",
-            },
-            {
-              id: "Edema",
-              label: "Adverse Effect: Edema",
-              group: "adverse_effect",
-            },
-            {
-              id: "Hypoglycemia",
-              label: "Adverse Effect: Hypoglycemia",
-              group: "adverse_effect",
-            },
-            {
-              id: "Heart",
-              label: "Organ: Heart",
-              group: "organ",
-            },
-            {
-              id: "Peripheral Vascular System",
-              label: "Organ: Peripheral Vascular System",
-              group: "organ",
-            },
-            {
-              id: "Metabolic System",
-              label: "Organ: Metabolic System",
-              group: "organ",
-            },
-            {
-              id: "Cardiac",
-              label: "Organ: Cardiac",
-              group: "organ",
-            },
-            {
-              id: "Rosiglitazone",
-              label: "Organ: Cardiac",
-              group: "organ",
-            },
-          ],
-          links: [
-            {
-              source: "Avandia",
-              target: "Metformin",
-              type: "INTERACTS_WITH",
-              value: 12,
-            },
-            {
-              source: "Rosiglitazone",
-              target: "Isosorbide Mononitrate",
-              type: "INTERACTS_WITH",
-              value: 45,
-            },
-            {
-              source: "Rosiglitazone",
-              target: "Heart failure",
-              type: "CAUSES_AE",
-              value: 8,
-            },
-            {
-              source: "Rosiglitazone",
-              target: "Edema",
-              type: "CAUSES_AE",
-              value: 8,
-            },
-            {
-              source: "Metformin",
-              target: "Hypoglycemia",
-              type: "CAUSES_AE",
-              value: 3,
-            },
-            {
-              source: "Heart failure",
-              target: "Heart",
-              type: "AFFECTS_ORGAN",
-              value: 8,
-            },
-            {
-              source: "Edema",
-              target: "Peripheral Vascular System",
-              type: "AFFECTS_ORGAN",
-              value: 8,
-            },
-            {
-              source: "Hypoglycemia",
-              target: "Metabolic System",
-              type: "AFFECTS_ORGAN",
-              value: 3,
-            },
-            {
-              source: "Rosiglitazone",
-              target: "Cardiac",
-              type: "AFFECTS_ORGAN",
-              value: 20.1,
-            },
-          ],
-        },
-      });
+      {
+        "id": "IngredientB",
+        "type": "Drug"
+      },
+      {
+        "id": "IngredientC",
+        "type": "Drug"
+      },
+      {
+        "id": "IngredientD",
+        "type": "Drug"
+      },
+      {
+        "id": "Dizziness",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "QT prolongation",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "Increased bleeding risk",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "Serotonin syndrome",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "Hypotension",
+        "type": "Adverse Effect"
+      }
+    ],
+    "links": [
+      {
+        "source": "IngredientA",
+        "target": "IngredientB",
+        "type": "INTERACTS_WITH",
+        "value": 3
+      },
+      {
+        "source": "IngredientA",
+        "target": "IngredientC",
+        "type": "INTERACTS_WITH",
+        "value": 8
+      },
+      {
+        "source": "IngredientB",
+        "target": "IngredientC",
+        "type": "INTERACTS_WITH",
+        "value": 5
+      },
+      {
+        "source": "IngredientA",
+        "target": "IngredientD",
+        "type": "INTERACTS_WITH",
+        "value": 7
+      },
+      {
+        "source": "IngredientB",
+        "target": "IngredientD",
+        "type": "INTERACTS_WITH",
+        "value": 4
+      },
+      {
+        "source": "IngredientA",
+        "target": "Dizziness",
+        "type": "CAUSES_AE",
+        "value": 3
+      },
+      {
+        "source": "IngredientB",
+        "target": "Dizziness",
+        "type": "CAUSES_AE",
+        "value": 3
+      },
+      {
+        "source": "IngredientA",
+        "target": "QT prolongation",
+        "type": "CAUSES_AE",
+        "value": 8
+      },
+      {
+        "source": "IngredientC",
+        "target": "QT prolongation",
+        "type": "CAUSES_AE",
+        "value": 8
+      },
+      {
+        "source": "IngredientB",
+        "target": "Increased bleeding risk",
+        "type": "CAUSES_AE",
+        "value": 5
+      },
+      {
+        "source": "IngredientC",
+        "target": "Increased bleeding risk",
+        "type": "CAUSES_AE",
+        "value": 5
+      },
+      {
+        "source": "IngredientA",
+        "target": "Serotonin syndrome",
+        "type": "CAUSES_AE",
+        "value": 7
+      },
+      {
+        "source": "IngredientD",
+        "target": "Serotonin syndrome",
+        "type": "CAUSES_AE",
+        "value": 7
+      },
+      {
+        "source": "IngredientB",
+        "target": "Hypotension",
+        "type": "CAUSES_AE",
+        "value": 4
+      },
+      {
+        "source": "IngredientD",
+        "target": "Hypotension",
+        "type": "CAUSES_AE",
+        "value": 4
+      }
+    ]
+  },
+  "ddi_information": {
+    "adverse_effects": [
+      {
+        "adverse_effect": "QT prolongation",
+        "adverse_effect_score": 8,
+        "adverse_score_reason": "Both ingredients can prolong QT interval, increasing the risk of life-threatening arrhythmias."
+      },
+      {
+        "adverse_effect": "Serotonin syndrome",
+        "adverse_effect_score": 7,
+        "adverse_score_reason": "Both ingredients increase serotonin levels, potentially leading to severe serotonin syndrome requiring hospitalization."
+      },
+      {
+        "adverse_effect": "Increased bleeding risk",
+        "adverse_effect_score": 5,
+        "adverse_score_reason": "IngredientB can potentiate the anticoagulant effect of IngredientC, leading to significant bleeding risk."
+      },
+      {
+        "adverse_effect": "Hypotension",
+        "adverse_effect_score": 4,
+        "adverse_score_reason": "Combined vasodilatory effects can lead to significant hypotension, requiring dose adjustment."
+      },
+      {
+        "adverse_effect": "Dizziness",
+        "adverse_effect_score": 3,
+        "adverse_score_reason": "Both ingredients can cause CNS depression, leading to dizziness which is common and manageable."
+      }
+    ]
+  }
+}
+);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
   const handleButtonClick = async () => {
     navigate("/secondPage"); // Navigate to '/secondPage' when the function is called
     setIsLoading(true);
@@ -390,10 +437,13 @@ const MainPage = () => {
           conduct a thorough due diligence process, delivering a detailed
           assessment of its interactions.
         </p>
+        <p className="font-bold text-xl">Drug Drug Interaction</p>
         <div
           className="input-button-container"
           style={{
             display: "flex",
+            flexWrap: "wrap", // Enable wrapping
+            justifyContent: "flex-start",
             alignItems: "center",
             marginBottom: "20px",
           }}
@@ -406,18 +456,53 @@ const MainPage = () => {
               onChange={(e) => handleInputChange(index, e.target.value)}
               placeholder={`Drug ${index + 1}`}
               className="main-page-input"
-              style={{ marginRight: "10px", flex: "1" }}
+              style={{
+                flex: "0 0 calc(50% - 10px)", // Allow two items per row
+                marginRight: index % 2 === 1 ? "0px" : "10px", // No right margin for the second item
+                marginBottom: "10px",
+                boxSizing: "border-box",
+              }}
             />
           ))}
-          <button
-            onClick={handleAddInput}
-            className="main-page-button"
-            style={{ marginRight: "10px" }}
+          <div
+            style={{
+              display: "flex",
+              flex: "0 0 100%", // Takes full width to ensure buttons are on a new line
+              justifyContent: "flex-end",
+              marginBottom: "10px",
+            }}
           >
-            +
-          </button>
-          <button className="main-page-button" onClick={handleDrug}>Drug Interaction</button>
+            <button
+              onClick={handleAddInput}
+              className="main-page-button"
+              style={{
+                flex: "0 0 auto", // Automatically size based on content
+                marginRight: "10px",
+                padding: "5px 10px", // Adjust padding for better touch targets
+                fontSize: "24px", // Increase font size for emoji visibility
+                lineHeight: "1", // Adjust line height to center the emoji
+                boxSizing: "border-box",
+                background: "none", // Remove default button background
+                border: "none", // Remove default button border
+                cursor: "pointer",
+              }}
+            >
+              ➕
+            </button>
+            <button
+              className="main-page-button"
+              onClick={handleDrug}
+              style={{
+                flex: "0 0 calc(25% - 10px)", // Same width as inputs
+                boxSizing: "border-box",
+              }}
+            >
+              Drug Interaction
+            </button>
+          </div>
         </div>
+        <div class="horizontal-dotted-line"></div>
+                <p className="font-bold text-xl mt-2">Doctor Recommandation</p>
         <div className="input-button-container">
           <select
             value={selectedDrug}
@@ -438,7 +523,7 @@ const MainPage = () => {
             onChange={(e) => setInputValue(e.target.value)}
             placeholder="Enter the drug you need to prescribe"
             className="main-page-input"
-            style={{ marginRight: "10px" }}
+            style={{ marginRight: "10px", }}
           />
 
           <button className="main-page-button" onClick={handleButtonClick}>

@@ -14,7 +14,7 @@ const Graph = () => {
     useStateContext();
   const navigate = useNavigate(); // Initialize the navigate function
   const [treeData, setTreeData] = useState({});
-  const links2 = drugInteraction.d3_graph_data.links.map(l => ({
+  const links2 = drugInteraction.ddi_d3_graph.links.map(l => ({
   ...l,
   label: `${l.type}\n${l.value}`
 }));
@@ -51,7 +51,7 @@ const Graph = () => {
     paddingTop: "40px", // adjust as needed
   }}
 >
-  <D3DirectedGraph nodes={drugInteraction.d3_graph_data.nodes} links={links2} />
+  <D3DirectedGraph nodes={drugInteraction.ddi_d3_graph.nodes} links={links2} />
 </div>
 
 

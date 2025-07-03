@@ -15,7 +15,13 @@ const DrugPage = () => {
   const handlePageChange2 = () => {
     navigate("/graph2");
   };
-
+  function getScoreColor(score) {
+    if (score >= 8) return "#e53935"; // red
+    if (score >= 6) return "#fb8c00"; // orange
+    if (score >= 4) return "#fbc02d"; // yellow
+    if (score >= 2) return "#43a047"; // green
+    return "#1e88e5"; // blue
+  }
   return (
     <div style={{ padding: "20px" }}>
       <div
@@ -47,25 +53,76 @@ const DrugPage = () => {
             fontFamily: "system-ui, sans-serif",
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'stretch' }}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "stretch",
+            }}
+          >
             {/* Bar Chart */}
-            <div style={{ flex: '0 0 40%', paddingRight: '10px' }}>
-              <BarChart drugData={drugInteraction.drugData.data} />
+            <div style={{ flex: "0 0 40%", paddingRight: "10px" }}>
+              <BarChart drugData={drugInteraction.ddi_bar_graph} />
             </div>
 
             {/* Separation Line */}
-            <div style={{  marginLeft: '70px', borderLeft: '1px solid lightgrey', height: 'auto' }}></div>
+            <div
+              style={{
+                marginLeft: "0px",
+                borderLeft: "1px solid lightgrey",
+                height: "auto",
+              }}
+            ></div>
 
             {/* Text Description */}
-            <div style={{ flex: '0 0 60%', paddingLeft: '70px' }}>
-              <h2>Drug Interaction Analysis</h2>
-              <p>
-                Avandia (Rosiglitazone) is associated with an increased risk of heart failure and edema...
-              </p>
-              <p><strong>Recommendation:</strong> Should not prescribe</p>
-              <p><strong>Reasoning:</strong> The patient's BNP is slightly elevated, indicating potential cardiac stress...</p>
-              <p><strong>Alternative Drugs:</strong> Pioglitazone, SGLT2 inhibitors, GLP-1 receptor agonists</p>
-              <p><strong>Precautions:</strong> Monitor cardiac function closely...</p>
+            <div
+              style={{
+                flex: "0 0 60%",
+                paddingLeft: "0px",
+                maxWidth: 600,
+                wordBreak: "break-word",
+              }}
+            >
+              <h2 className="text-xl font-bold text-blue-400">
+                Drug Interaction Analysis
+              </h2>
+              <ul style={{ listStyle: "disc", paddingLeft: "24px" }}>
+                {drugInteraction.ddi_information.adverse_effects.map(
+                  (effect, idx) => (
+                    <li key={idx} style={{ marginBottom: "18px" }}>
+                      <span style={{ fontWeight: "bold" }}>
+                        {effect.adverse_effect}
+                      </span>
+                      <span
+                        style={{
+                          background: getScoreColor(
+                            effect.adverse_effect_score
+                          ),
+                          color: "#fff",
+                          borderRadius: "12px",
+                          fontSize: "0.92em",
+                          padding: "2px 10px",
+                          marginLeft: "8px",
+                          verticalAlign: "middle",
+                          display: "inline-block",
+                        }}
+                      >
+                        {effect.adverse_effect_score}
+                      </span>
+                      <div
+                        style={{
+                          fontSize: "0.96em",
+                          color: "#444",
+                          marginTop: "4px",
+                          marginLeft: "4px",
+                        }}
+                      >
+                        {effect.adverse_score_reason}
+                      </div>
+                    </li>
+                  )
+                )}
+              </ul>
             </div>
           </div>
 

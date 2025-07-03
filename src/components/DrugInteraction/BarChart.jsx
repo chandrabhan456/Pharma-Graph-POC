@@ -6,43 +6,41 @@ import { Chart, registerables } from 'chart.js';
 Chart.register(...registerables);
 
 const BarChart = ({ drugData }) => {
-  // Prepare the data for the chart
+  // Extract labels and data from the object
+  const labels = Object.keys(drugData);
+  const data = Object.values(drugData);
+
+  // Set all bars to a bright blue
+  const barColor = 'rgba(0, 123, 255, 1)'; // Bootstrap blue, very bright
+
   const chartData = {
-    labels: drugData.map(drug => drug.name),
+    labels,
     datasets: [
       {
-        label: 'Drug Score',
-        data: drugData.map(drug => drug.score),
-        backgroundColor: [
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-        ],
-        borderColor: [
-          'rgba(75, 192, 192, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(255, 99, 132, 1)',
-          'rgba(153, 102, 255, 1)',
-        ],
-        borderWidth: 1,
+        // label: 'Score', // Omit label if you want to remove legend
+        data,
+        backgroundColor: Array(labels.length).fill(barColor),
+        borderColor: Array(labels.length).fill(barColor),
+        borderWidth: 2,
       },
     ],
   };
 
-  // Options for the chart
   const chartOptions = {
+    plugins: {
+      legend: {
+        display: false // Hide the legend
+      },
+    },
     scales: {
       x: {
         grid: {
-          display: false // Hides the grid lines on the x-axis
-        }
+          display: false,
+        },
       },
       y: {
         grid: {
-          display: false // Hides the grid lines on the y-axis
+          display: false,
         },
         beginAtZero: true,
         title: {

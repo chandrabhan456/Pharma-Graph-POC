@@ -45,7 +45,7 @@
 
 .main-page-input {
   padding: 10px;
-  width: 100%;
+  width: 800%;
   border: 1px solid #ccc;
   border-radius: 30px;
   flex: 1;
@@ -90,4 +90,9 @@
   padding: 6px 12px;
   background: #fff;
   height:40px
+}
+.horizontal-dotted-line {
+  border-top: 1px dotted black; /* Creates a dotted line */
+  width: 100%; /* Full width of the container */
+  margin-top: -15px;
 }
