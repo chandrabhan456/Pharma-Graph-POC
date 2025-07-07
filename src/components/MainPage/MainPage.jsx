@@ -66,172 +66,96 @@ const MainPage = () => {
     } catch (error) {
       console.error("Error fetching image:", error);
       setDrugInteraction(
-        {
+     {
   "ddi_bar_graph": {
-    "Dizziness": 3,
-    "QT prolongation": 8,
-    "Increased bleeding risk": 5,
-    "Serotonin syndrome": 7,
-    "Hypotension": 4
+    "Hypotension": 4,
+    "Renal impairment": 6,
+    "Electrolyte disturbance": 5
   },
   "ddi_d3_graph": {
     "nodes": [
       {
-        "id": "IngredientA",
+        "id": "Lenalidomide",
         "type": "Drug"
       },
       {
-        "id": "IngredientB",
+        "id": "Telmisartan",
         "type": "Drug"
-      },
-      {
-        "id": "IngredientC",
-        "type": "Drug"
-      },
-      {
-        "id": "IngredientD",
-        "type": "Drug"
-      },
-      {
-        "id": "Dizziness",
-        "type": "Adverse Effect"
-      },
-      {
-        "id": "QT prolongation",
-        "type": "Adverse Effect"
-      },
-      {
-        "id": "Increased bleeding risk",
-        "type": "Adverse Effect"
-      },
-      {
-        "id": "Serotonin syndrome",
-        "type": "Adverse Effect"
       },
       {
         "id": "Hypotension",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "Renal impairment",
+        "type": "Adverse Effect"
+      },
+      {
+        "id": "Electrolyte disturbance",
         "type": "Adverse Effect"
       }
     ],
     "links": [
       {
-        "source": "IngredientA",
-        "target": "IngredientB",
-        "type": "INTERACTS_WITH",
-        "value": 3
-      },
-      {
-        "source": "IngredientA",
-        "target": "IngredientC",
-        "type": "INTERACTS_WITH",
-        "value": 8
-      },
-      {
-        "source": "IngredientB",
-        "target": "IngredientC",
-        "type": "INTERACTS_WITH",
-        "value": 5
-      },
-      {
-        "source": "IngredientA",
-        "target": "IngredientD",
-        "type": "INTERACTS_WITH",
-        "value": 7
-      },
-      {
-        "source": "IngredientB",
-        "target": "IngredientD",
+        "source": "Lenalidomide",
+        "target": "Telmisartan",
         "type": "INTERACTS_WITH",
         "value": 4
       },
       {
-        "source": "IngredientA",
-        "target": "Dizziness",
-        "type": "CAUSES_AE",
-        "value": 3
-      },
-      {
-        "source": "IngredientB",
-        "target": "Dizziness",
-        "type": "CAUSES_AE",
-        "value": 3
-      },
-      {
-        "source": "IngredientA",
-        "target": "QT prolongation",
-        "type": "CAUSES_AE",
-        "value": 8
-      },
-      {
-        "source": "IngredientC",
-        "target": "QT prolongation",
-        "type": "CAUSES_AE",
-        "value": 8
-      },
-      {
-        "source": "IngredientB",
-        "target": "Increased bleeding risk",
-        "type": "CAUSES_AE",
-        "value": 5
-      },
-      {
-        "source": "IngredientC",
-        "target": "Increased bleeding risk",
-        "type": "CAUSES_AE",
-        "value": 5
-      },
-      {
-        "source": "IngredientA",
-        "target": "Serotonin syndrome",
-        "type": "CAUSES_AE",
-        "value": 7
-      },
-      {
-        "source": "IngredientD",
-        "target": "Serotonin syndrome",
-        "type": "CAUSES_AE",
-        "value": 7
-      },
-      {
-        "source": "IngredientB",
+        "source": "Lenalidomide",
         "target": "Hypotension",
         "type": "CAUSES_AE",
         "value": 4
       },
       {
-        "source": "IngredientD",
+        "source": "Telmisartan",
         "target": "Hypotension",
         "type": "CAUSES_AE",
         "value": 4
+      },
+      {
+        "source": "Lenalidomide",
+        "target": "Renal impairment",
+        "type": "CAUSES_AE",
+        "value": 6
+      },
+      {
+        "source": "Telmisartan",
+        "target": "Renal impairment",
+        "type": "CAUSES_AE",
+        "value": 6
+      },
+      {
+        "source": "Lenalidomide",
+        "target": "Electrolyte disturbance",
+        "type": "CAUSES_AE",
+        "value": 5
+      },
+      {
+        "source": "Telmisartan",
+        "target": "Electrolyte disturbance",
+        "type": "CAUSES_AE",
+        "value": 5
       }
     ]
   },
   "ddi_information": {
     "adverse_effects": [
       {
-        "adverse_effect": "QT prolongation",
-        "adverse_effect_score": 8,
-        "adverse_score_reason": "Both ingredients can prolong QT interval, increasing the risk of life-threatening arrhythmias."
+        "adverse_effect": "Renal impairment",
+        "adverse_effect_score": 6,
+        "adverse_score_reason": "Both Lenalidomide and Telmisartan can affect renal function, potentially leading to renal impairment requiring monitoring."
       },
       {
-        "adverse_effect": "Serotonin syndrome",
-        "adverse_effect_score": 7,
-        "adverse_score_reason": "Both ingredients increase serotonin levels, potentially leading to severe serotonin syndrome requiring hospitalization."
-      },
-      {
-        "adverse_effect": "Increased bleeding risk",
+        "adverse_effect": "Electrolyte disturbance",
         "adverse_effect_score": 5,
-        "adverse_score_reason": "IngredientB can potentiate the anticoagulant effect of IngredientC, leading to significant bleeding risk."
+        "adverse_score_reason": "Telmisartan can cause changes in potassium levels, which may be significant when combined with Lenalidomide's effects on the body."
       },
       {
         "adverse_effect": "Hypotension",
         "adverse_effect_score": 4,
-        "adverse_score_reason": "Combined vasodilatory effects can lead to significant hypotension, requiring dose adjustment."
-      },
-      {
-        "adverse_effect": "Dizziness",
-        "adverse_effect_score": 3,
-        "adverse_score_reason": "Both ingredients can cause CNS depression, leading to dizziness which is common and manageable."
+        "adverse_score_reason": "Lenalidomide can cause dizziness and fatigue, which may be exacerbated by the blood pressure-lowering effects of Telmisartan, leading to significant hypotension."
       }
     ]
   }

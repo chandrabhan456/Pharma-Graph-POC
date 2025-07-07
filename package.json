@@ -12,6 +12,7 @@
   "dependencies": {
     "autoprefixer": "^10.4.13",
     "chart.js": "^4.4.9",
+    "chartjs-plugin-datalabels": "^2.2.0",
     "d3": "^7.9.0",
     "lucide-react": "^0.513.0",
     "papaparse": "^5.5.3",
