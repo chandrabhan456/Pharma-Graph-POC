@@ -39,6 +39,3 @@ input:focus {
 .custom-navbar {
   height: 50px; /* Adjust the height to your preferred size */
 }
-body {
-  overflow: hidden; /* match your navbar height */
-}

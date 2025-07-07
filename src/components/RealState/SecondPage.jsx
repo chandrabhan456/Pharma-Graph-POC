@@ -5,6 +5,16 @@ import { useNavigate } from "react-router-dom";
 import { useStateContext } from "../../contexts/ContextProvider";
 
 
+const legendInfo = [
+  { color: "#e74c3c", label: "7-10: High Risk" },
+  { color: "#f39c12", label: "5-6: Moderate Risk" },
+  { color: "#f7d358", label: "3-5: Low Risk" },
+  { color: "#27ae60", label: "0-3: Minimal Risk" },
+];
+
+const legendDescription = "(Color indicates severity of interaction risk. Red is highest, green is lowest.)";
+
+
 const SecondPage = () => {
   const { recommendation, setRecommendation, isLoading, setIsLoading } =
     useStateContext();
@@ -124,6 +134,33 @@ const SecondPage = () => {
               }
             </p>
           </div>
+           <div style={{ marginTop: 24, display: "flex", alignItems: "center", flexWrap: "wrap" }}>
+        {legendInfo.map((item) => (
+          <div
+            key={item.label}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              marginRight: 24,
+              marginBottom: 8,
+            }}
+          >
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                background: item.color,
+                border: "1px solid #aaa",
+                marginRight: 8,
+              }}
+            ></div>
+            <span style={{ fontSize: 15 }}>{item.label}</span>
+          </div>
+        ))}
+        <span style={{ fontSize: 13, fontStyle: "italic", marginLeft: 12, color: "#666" }}>
+          {legendDescription}
+        </span>
+      </div>
           <div
             style={{ textAlign: "center", margin: "30px 0" }}
             onClick={handlePageChange2}

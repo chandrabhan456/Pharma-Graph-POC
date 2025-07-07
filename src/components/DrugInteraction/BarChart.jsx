@@ -5,19 +5,27 @@ import ChartDataLabels from "chartjs-plugin-datalabels";
 
 Chart.register(...registerables, ChartDataLabels);
 
-function getColor(score) {
-  if (score >= 7) return "#e74c3c"; // Red
-  if (score >= 5) return "#f39c12"; // Orange
-  if (score >= 3) return "#f7d358"; // Yellow
-  return "#27ae60"; // Green
-}
+const getColor = (score) => {
+  if (score >= 7) return "#e74c3c";
+  if (score >= 5) return "#f39c12";
+  if (score >= 3) return "#f7d358";
+  return "#27ae60";
+};
+
+const legendInfo = [
+  { color: "#e74c3c", label: "7-10: High Risk" },
+  { color: "#f39c12", label: "5-6: Moderate Risk" },
+  { color: "#f7d358", label: "3-5: Low Risk" },
+  { color: "#27ae60", label: "0-3: Minimal Risk" },
+];
+
+const legendDescription =
+  "(Color indicates severity of interaction risk. Red is highest, green is lowest.)";
 
 const BarChart = ({ drugData }) => {
   const labels = Object.keys(drugData);
   const data = Object.values(drugData);
-
-  const maxValue = Math.max(...data);
-
+  const maxData = Math.max(...data);
   const chartData = {
     labels,
     datasets: [
@@ -26,13 +34,17 @@ const BarChart = ({ drugData }) => {
         backgroundColor: data.map(getColor),
         borderColor: data.map(getColor),
         borderWidth: 2,
-        barThickness: 30,
+        // barThickness: 30, // REMOVE THIS LINE
+        categoryPercentage: 0.5, // More gap between bars
+        barPercentage: 0.5, // Thinner bars
       },
     ],
   };
 
   const chartOptions = {
     indexAxis: "y",
+    responsive: true,
+    maintainAspectRatio: false, // THIS IS CRITICAL!
     plugins: {
       legend: { display: false },
       title: {
@@ -47,58 +59,84 @@ const BarChart = ({ drugData }) => {
         anchor: "end",
         align: "right",
         color: "#333",
-        font: { weight: "bold", size: 14 },
+        font: {
+          weight: "bold",
+          size: 14,
+        },
         formatter: (value) => value,
-        clamp: true,
-        clip: false,
       },
     },
-    responsive: true,
     scales: {
       x: {
-        beginAtZero: true,
-        max: maxValue + 1,
-        grid: { display: false },
-        title: { display: true, text: "Score" },
-        ticks: { precision: 0 },
-      },
+      beginAtZero: true,
+      max: maxData + 1, // Ensure room for datalabel
+      grid: { display: false },
+      title: { display: true, text: "Score" },
+      ticks: { precision: 0 },
+    },
       y: {
         grid: { display: false },
       },
     },
   };
 
-  return (
-    <div style={{ width: "100%", maxWidth: 700, margin: "auto" }}>
-      <Bar data={chartData} options={chartOptions} plugins={[ChartDataLabels]} />
+  // Height: 60px per bar, minimum 200px
+  const chartHeight = Math.max(labels.length * 60, 200);
 
+  return (
+    <div
+      style={{
+        width: "100%",
+        height: Math.max(labels.length * 50, 200), // Adjust 50 as needed
+        maxWidth: 600,
+        margin: "auto",
+      }}
+    >
+      <Bar
+        data={chartData}
+        options={chartOptions}
+        plugins={[ChartDataLabels]}
+      />
       {/* Legend */}
-      <div style={{ marginTop: 24, display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-        {labels.map((label, i) => (
+      <div
+        style={{
+          marginTop: 24,
+          display: "flex",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
+        {legendInfo.map((item) => (
           <div
-            key={label}
+            key={item.label}
             style={{
               display: "flex",
               alignItems: "center",
-              marginBottom: 6,
+              marginRight: 24,
+              marginBottom: 8,
             }}
           >
             <div
               style={{
                 width: 18,
                 height: 18,
-                background: getColor(data[i]),
+                background: item.color,
                 border: "1px solid #aaa",
                 marginRight: 8,
               }}
             ></div>
-            <span style={{ fontSize: 15 }}>
-              {label}: {data[i]}
-            </span>
+            <span style={{ fontSize: 15 }}>{item.label}</span>
           </div>
         ))}
-        <span style={{ fontSize: 13, fontStyle: "italic", marginTop: 8, color: "#666" }}>
-          (Color indicates severity of interaction risk. Red is highest, green is lowest.)
+        <span
+          style={{
+            fontSize: 13,
+            fontStyle: "italic",
+            marginLeft: 12,
+            color: "#666",
+          }}
+        >
+          {legendDescription}
         </span>
       </div>
     </div>

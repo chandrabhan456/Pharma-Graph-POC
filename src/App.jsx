@@ -26,14 +26,14 @@ function App() {
       </div>
 
       {/* Sidebar & Content Container (Below Navbar) */}
-      <div className="flex flex-row mt-12">
+      <div className="flex ">
         {/* Sidebar - Fixed on Left */}
-        {<div className="w-80 h-screen fixed left-0 top-12 bg-gray-100 ">
+        {<div className="fixed top-12 left-0 w-80 h-[calc(100vh-3rem)] bg-gray-100 z-40 ">
           <Sidebar />
         </div>}
         
      {/* Main Content - Takes Remaining Space */}
- <div className={`transition-all duration-300 w-full overflow-x-hidden ml-80`}>
+ <div className={`transition-all duration-300  w-full overflow-x-hidden ml-80 pt-12`}>
   <Routes>
     
   
